@@ -1,0 +1,49 @@
+"""
+Lexbot Lambda handler.
+"""
+from urllib.request import Request, urlopen
+import json
+
+    
+def lambda_handler(event, context):
+  print('received request: ' + str(event))
+  slot1 = event['currentIntent']['slots']['slotOne']
+	slot2 = event['currentIntent']['slots']['slotTwo']
+	slot3 = event['currentIntent']['slots']['slotThree']
+	slot4 = event['currentIntent']['slots']['slotFour']
+	slot5 = event['currentIntent']['slots']['slotFive']
+    if(slot1 == "cancel"):
+		response = {
+				"dialogAction": {
+					"type": "Close",
+					"fulfillmentState": "Fulfilled",
+					"message": {
+					  "contentType": "SSML",
+					  "content": "Okay bye!! Have a nice day. " 
+					},
+				}
+			}
+	
+	if(slot1 == "ok" and slot2 == "Ok" and slot3 == "1" and slot4 == "1" and slot5 > 40):
+		response = {
+			"dialogAction": {
+				"type": "Close",
+				"fulfillmentState": "Fulfilled",
+				"message": {
+				  "contentType": "SSML",
+				  "content": "You are at high risk!!! " 
+				},
+			}
+		}
+	elif(slot1 == "ok" and slot2 == "Ok" and slot3 == "2" and slot4 == "2" and slot5 > 20):
+		response = {
+			"dialogAction": {
+				"type": "Close",
+				"fulfillmentState": "Fulfilled",
+				"message": {
+				  "contentType": "SSML",
+				  "content": "You are at moderate risk!!! " 
+				},
+			}
+		}
+    return response
